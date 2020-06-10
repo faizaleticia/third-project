@@ -5,8 +5,8 @@ Escreva um programa que abra o arquivo clients.txt, que descreve em coordenadas 
 Inicialmente, é preciso fazer a visualização dos dados, ilustrando de alguma forma a distribuição de clientes e fornecedores, gerando uma imagem. Pede-se relacionar cada cliente a um único fornecedor, usando o critério de menor distância euclidiana entre eles. Uma vez feita essa associação, solicita-se exibir cada fornecedor e os códigos dos seus respectivos clientes, por ordem decrescente de distância (entre cada cliente e seu fornecedor).
 
 Tarefas:
-- [ ] Ler arquivo de clientes
-- [ ] Ler arquivo de fornecedores
+- [x] Ler arquivo de clientes
+- [x] Ler arquivo de fornecedores
 - [ ] Relacionar clientes com fornecedores, usando o critério de menor distância euclidiana
 - [ ] Exibir cada fornecedor e os códigos dos seus clientes, por ordem decrescente de distância
 - [ ] Gerar imagem do resultado
