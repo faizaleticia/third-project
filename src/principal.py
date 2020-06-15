@@ -24,6 +24,8 @@ for provider in providers:
     objectProvider = provider.split(' ')
     providersList.append(Company(objectProvider[0], objectProvider[1], objectProvider[2]))
 
+providersList.sort(key=attrgetter('name'))
+
 newProvidersList = []
 
 for client in clientsList:
@@ -64,6 +66,7 @@ for client in clientsList:
                 newProvider['client_list'].append(
                     {'company': client, 'euclidean_distance': provider['euclidean_distance']})
                 providerFound = True
+                break
 
         if providerFound is not True:
             newProvider = {
@@ -77,8 +80,6 @@ providersList = []
 for provider in newProvidersList:
     provider['company'].set_current_company(provider['client_list'])
     providersList.append(provider['company'])
-
-providersList.sort(key=attrgetter('name'))
 
 for provider in providersList:
     print(provider)
