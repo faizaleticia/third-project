@@ -1,7 +1,7 @@
 import os.path
 from src.Company import Company
 
-my_path = os.path.abspath(os.path.dirname(_file_))
+my_path = os.path.abspath(os.path.dirname(__file__))
 clientPath = os.path.join(my_path, '../files/clients.txt')
 
 clientsFile = open(clientPath, 'r')
@@ -32,9 +32,11 @@ for client in clientsList:
     euclideanDistance = provider.euclidean_distance(clientPoint)
 
     smallerProvider = {
-      "company": providersList[0],
+      "company": provider,
       "euclidean_distance": euclideanDistance,
     }
+
+    equalsProvider = []
 
     for i in range(1, len(providersList)):
         provider = providersList[i]
@@ -43,5 +45,12 @@ for client in clientsList:
         if smallerProvider['euclidean_distance'] > euclideanDistance:
             smallerProvider['company'] = provider
             smallerProvider['euclidean_distance'] = euclideanDistance
+            equalsProvider = []
+        elif smallerProvider['euclidean_distance'] == euclideanDistance:
+            equalsProvider.append({
+                "company": provider,
+                "euclidean_distance": euclideanDistance,
+            })
 
-    client.set_current_company([smallerProvider])
+    equalsProvider.append(smallerProvider)
+    client.set_current_company(equalsProvider)

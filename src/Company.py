@@ -4,12 +4,12 @@ from scipy.spatial import distance
 class Company:
     current_company = []
 
-    def _init_(self, name, latitude, longitude):
+    def __init__(self, name, latitude, longitude):
         self.name = name
         self.latitude = latitude
         self.longitude = longitude
 
-    def _str_(self):
+    def __str__(self):
         message = ''
 
         for company in self.current_company:
