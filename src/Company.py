@@ -13,9 +13,12 @@ class Company:
         message = ''
 
         for company in self.current_company:
-            message += company['company'].name + ' - Distância: ' + str(company['euclidean_distance']) + ' '
+            message += company['company'].name + ' - Distância: ' + str(company['euclidean_distance']) + ' | '
 
         return self.name + " - Latitude: " + self.latitude + " Longitude: " + self.longitude + '\n [' + message + ']\n'
+
+    def get_name(self):
+        return self.name
 
     def euclidean_distance(self, client_point):
         company_point = (float(self.latitude), float(self.longitude))
