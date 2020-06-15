@@ -7,6 +7,6 @@ Inicialmente, é preciso fazer a visualização dos dados, ilustrando de alguma 
 Tarefas:
 - [x] Ler arquivo de clientes
 - [x] Ler arquivo de fornecedores
-- [ ] Relacionar clientes com fornecedores, usando o critério de menor distância euclidiana
+- [x] Relacionar clientes com fornecedores, usando o critério de menor distância euclidiana
 - [ ] Exibir cada fornecedor e os códigos dos seus clientes, por ordem decrescente de distância
 - [ ] Gerar imagem do resultado
