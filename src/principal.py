@@ -1,6 +1,7 @@
 import os.path
+import matplotlib
+import matplotlib.pyplot as plt
 from src.Company import Company
-from operator import attrgetter
 
 my_path = os.path.abspath(os.path.dirname(__file__))
 clientPath = os.path.join(my_path, '../files/clients.txt')
@@ -75,3 +76,35 @@ for client in clientsList:
 for index, provider in enumerate(newProvidersList, 0):
     provider['company'].set_current_company(provider['client_list'])
     newProvidersList[index] = provider['company']
+
+matplotlib.style.use('dark_background')
+
+ax = plt.axes()
+
+ny_lon, ny_lat = 0.5154, 0.8832
+client_lon, client_lat = 0.3228, 0.6503
+
+delhi_lon, delhi_lat = 0.5984, 0.0715
+
+plt.plot([ny_lon, delhi_lon], [ny_lat, delhi_lat],
+         color='gray', linestyle='--', linewidth=0.8)
+
+plt.plot([client_lon, delhi_lon], [client_lat, delhi_lat],
+         color='gray', linestyle='--', linewidth=0.8)
+
+plt.scatter(0.3228, 0.6503, s=50)
+
+plt.scatter(0.5154, 0.8832, s=50)
+
+plt.scatter(0.5984, 0.0715, s=50)
+
+plt.text(client_lon, client_lat + 0.01, 'Cliente ID0001',
+         horizontalalignment='left')
+
+plt.text(ny_lon, ny_lat + 0.01, 'Cliente ID0000',
+         horizontalalignment='left')
+
+plt.text(delhi_lon, delhi_lat + 0.01, 'Fornecedor A',
+         horizontalalignment='left')
+
+plt.show()
