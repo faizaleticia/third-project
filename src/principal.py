@@ -24,8 +24,6 @@ for provider in providers:
     objectProvider = provider.split(' ')
     providersList.append(Company(objectProvider[0], objectProvider[1], objectProvider[2]))
 
-providersList.sort(key=attrgetter('name'))
-
 newProvidersList = []
 
 for client in clientsList:
@@ -41,8 +39,7 @@ for client in clientsList:
 
     equalsProvider = []
 
-    for i in range(1, len(providersList)):
-        provider = providersList[i]
+    for index, provider in enumerate(providersList, 1):
         euclideanDistance = provider.euclidean_distance(clientPoint)
 
         if smallerProvider['euclidean_distance'] > euclideanDistance:
@@ -75,11 +72,6 @@ for client in clientsList:
             }
             newProvidersList.append(newProvider)
 
-providersList = []
-
-for provider in newProvidersList:
+for index, provider in enumerate(newProvidersList, 0):
     provider['company'].set_current_company(provider['client_list'])
-    providersList.append(provider['company'])
-
-for provider in providersList:
-    print(provider)
+    newProvidersList[index] = provider['company']

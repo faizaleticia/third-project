@@ -17,9 +17,6 @@ class Company:
 
         return self.name + " - Latitude: " + self.latitude + " Longitude: " + self.longitude + '\n [' + message + ']\n'
 
-    def get_name(self):
-        return self.name
-
     def euclidean_distance(self, client_point):
         company_point = (float(self.latitude), float(self.longitude))
         total_euclidean_distance = distance.euclidean(client_point, company_point)
