@@ -1,7 +1,9 @@
 .idea
 
 venv
-
+assets/img/*
+!assets/img/.gitkeep
 src/__pycache__/*
+
 
 .vscode
