@@ -1,7 +1,11 @@
 import os.path
 import matplotlib
 import matplotlib.pyplot as plt
+import numpy as np
+from shapely.geometry import LineString, MultiPoint, Point, MultiPolygon
+from shapely.ops import polygonize, unary_union
 from src.Company import Company
+from scipy.spatial import Voronoi
 
 my_path = os.path.abspath(os.path.dirname(__file__))
 clientPath = os.path.join(my_path, '../files/clients.txt')
@@ -73,38 +77,50 @@ for client in clientsList:
             }
             newProvidersList.append(newProvider)
 
+matplotlib.style.use('dark_background')
+
+plt.rcParams['figure.figsize'] = (11, 7)
+
 for index, provider in enumerate(newProvidersList, 0):
+    axes = plt.axes()
+    axes.margins(x=0.01, y=0.01)
+    print('entrou')
+
     provider['company'].set_current_company(provider['client_list'])
     newProvidersList[index] = provider['company']
 
-matplotlib.style.use('dark_background')
+    currentProvider = provider['company']
+    plt.title('Fornecedor ' + currentProvider.name)
 
-ax = plt.axes()
+    points = [[float(currentProvider.longitude), float(currentProvider.latitude)]]
 
-ny_lon, ny_lat = 0.5154, 0.8832
-client_lon, client_lat = 0.3228, 0.6503
+    for client in currentProvider.current_company:
+        currentClient = client['company']
+        points.append([float(currentClient.longitude), float(currentClient.latitude)])
 
-delhi_lon, delhi_lat = 0.5984, 0.0715
+    vor = Voronoi(np.array(points))
 
-plt.plot([ny_lon, delhi_lon], [ny_lat, delhi_lat],
-         color='gray', linestyle='--', linewidth=0.8)
+    lines = [
+        LineString(vor.vertices[line])
+        for line in vor.ridge_vertices if -1 not in line
+    ]
 
-plt.plot([client_lon, delhi_lon], [client_lat, delhi_lat],
-         color='gray', linestyle='--', linewidth=0.8)
+    convex_hull = MultiPoint([Point(i) for i in points]).convex_hull.buffer(2)
+    result = MultiPolygon([poly.intersection(convex_hull) for poly in polygonize(lines)])
+    result = MultiPolygon([p for p in result] + [p for p in convex_hull.difference(unary_union(result))])
 
-plt.scatter(0.3228, 0.6503, s=50)
+    plt.plot(float(currentProvider.longitude), float(currentProvider.latitude), 'ko')
+    plt.text(float(currentProvider.longitude), float(currentProvider.latitude) + 0.01,
+             'Fornecedor ' + currentProvider.name, horizontalalignment='left',
+             color='black')
+    plt.axis('equal')
+    plt.xlim(vor.min_bound[0] + 0.01, vor.max_bound[0] + 0.01)
+    plt.ylim(vor.min_bound[1] + 0.01, vor.max_bound[1] + 0.01)
 
-plt.scatter(0.5154, 0.8832, s=50)
+    for r in result:
+        plt.fill(*zip(*np.array(list(
+            zip(r.boundary.coords.xy[0][:-1], r.boundary.coords.xy[1][:-1])))),
+                 alpha=1)
 
-plt.scatter(0.5984, 0.0715, s=50)
-
-plt.text(client_lon, client_lat + 0.01, 'Cliente ID0001',
-         horizontalalignment='left')
-
-plt.text(ny_lon, ny_lat + 0.01, 'Cliente ID0000',
-         horizontalalignment='left')
-
-plt.text(delhi_lon, delhi_lat + 0.01, 'Fornecedor A',
-         horizontalalignment='left')
-
-plt.show()
+    plt.savefig(currentProvider.name + '.png', transparent=True)
+    plt.show()
