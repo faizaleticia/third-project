@@ -4,7 +4,7 @@ Escreva um programa que abra o arquivo clients.txt, que descreve em coordenadas 
 
 Inicialmente, é preciso fazer a visualização dos dados, ilustrando de alguma forma a distribuição de clientes e fornecedores, gerando uma imagem. Pede-se relacionar cada cliente a um único fornecedor, usando o critério de menor distância euclidiana entre eles. Uma vez feita essa associação, solicita-se exibir cada fornecedor e os códigos dos seus respectivos clientes, por ordem decrescente de distância (entre cada cliente e seu fornecedor).
 
-## Tarefas:
+## Tarefas
 - [x] Ler arquivo de clientes
 - [x] Ler arquivo de fornecedores
 - [x] Relacionar clientes com fornecedores, usando o critério de menor distância euclidiana
@@ -15,11 +15,11 @@ Inicialmente, é preciso fazer a visualização dos dados, ilustrando de alguma 
 
 O algoritmo gera para cada fornecedor um arquivo PDF com os códigos dos seus clientes, por ordem decrescente de distância euclidiana, bem como, um gráfico utilizando o Diagrama de Voronoi, o qual é um tipo especial de decomposição de um dado espaço, por exemplo, um espaço métrico, determinado pela distância para uma determinada família de objetos (subconjuntos) no espaço.
 
-### PDF
+### Exemplo PDF
 
 <img src="https://raw.githubusercontent.com/faizaleticia/third-project/master/assets/example/pdf.png?token=AHCXPPVB7LT2RJNT62SKDXS66KGUW" alt="PDF Example">
 
-### Gráfico
+### Exemplo Gráfico
 
 <img src="https://raw.githubusercontent.com/faizaleticia/third-project/master/assets/example/graph.png?token=AHCXPPWBBGLJQWNQMXROMFC66KG2K" alt="Graph Example">
 
