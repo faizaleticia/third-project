@@ -3,6 +3,8 @@
 venv
 assets/img/*
 !assets/img/.gitkeep
+assets/table/*
+!assets/table/.gitkeep
 src/__pycache__/*
 
 

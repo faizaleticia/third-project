@@ -1,10 +1,12 @@
 import os.path
 import matplotlib
 import matplotlib.pyplot as plt
+from prettytable import PrettyTable
 import numpy as np
 from shapely.geometry import LineString, MultiPoint, Point, MultiPolygon
 from shapely.ops import polygonize, unary_union
-from src.Company import Company
+from src.company import Company
+from src.pdf_generate import get_data_from_prettytable, export_to_pdf
 from scipy.spatial import Voronoi
 
 my_path = os.path.abspath(os.path.dirname(__file__))
@@ -78,25 +80,34 @@ for client in clientsList:
             newProvidersList.append(newProvider)
 
 matplotlib.style.use('dark_background')
-
 plt.rcParams['figure.figsize'] = (11, 7)
 
 for index, provider in enumerate(newProvidersList, 0):
-    axes = plt.axes()
-    axes.margins(x=0.01, y=0.01)
-    print('entrou')
-
     provider['company'].set_current_company(provider['client_list'])
     newProvidersList[index] = provider['company']
-
     currentProvider = provider['company']
+
+    axes = plt.axes()
+    axes.margins(x=0.01, y=0.01)
+
     plt.title('Fornecedor ' + currentProvider.name)
 
     points = [[float(currentProvider.longitude), float(currentProvider.latitude)]]
 
+    x = PrettyTable(["Cliente", "Latitude", "Longitude", "Distância Euclidiana"])
+    x.align["Cliente"] = "l"
+    x.align["Latitude"] = "r"
+    x.align["Longitude"] = "r"
+    x.align["Distância Euclidiana"] = "r"
+    x.padding_width = 1
+
     for client in currentProvider.current_company:
         currentClient = client['company']
         points.append([float(currentClient.longitude), float(currentClient.latitude)])
+        x.add_row([currentClient.name, currentClient.latitude, currentClient.longitude, client['euclidean_distance']])
+
+    header, data = get_data_from_prettytable(x.get_string(sortby="Distância Euclidiana", reversesort=True))
+    export_to_pdf(header, data, currentProvider.name)
 
     vor = Voronoi(np.array(points))
 
@@ -122,5 +133,5 @@ for index, provider in enumerate(newProvidersList, 0):
             zip(r.boundary.coords.xy[0][:-1], r.boundary.coords.xy[1][:-1])))),
                  alpha=1)
 
-    plt.savefig(currentProvider.name + '.png', transparent=True)
+    plt.savefig(os.path.join(my_path, '../assets/img/' + currentProvider.name + '.png'), transparent=True)
     plt.show()
