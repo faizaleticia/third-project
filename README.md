@@ -17,9 +17,9 @@ O algoritmo gera para cada fornecedor um arquivo PDF com os códigos dos seus cl
 
 ### Exemplo PDF
 
-<img src="https://raw.githubusercontent.com/faizaleticia/third-project/master/assets/example/pdf.png?token=AHCXPPVB7LT2RJNT62SKDXS66KGUW" alt="PDF Example">
+<img src="https://github.com/faizaleticia/third-project/blob/master/assets/example/pdf.png" alt="PDF Example">
 
 ### Exemplo Gráfico
 
-<img src="https://raw.githubusercontent.com/faizaleticia/third-project/master/assets/example/graph.png?token=AHCXPPWBBGLJQWNQMXROMFC66KG2K" alt="Graph Example">
+<img src="https://github.com/faizaleticia/third-project/blob/master/assets/example/graph.png" alt="Graph Example">
 
